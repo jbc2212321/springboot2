@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <label>
+        <input type="text" placeholder="请输入您的电话号码" maxlength="11"  name="phone"/>
+    </label>
+    <input type="button" value="确认" @click="send" />
+    <br>
+   <button @click="an">按钮</button>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    var app = new Vue({
+        el:"#app",
+        data:{
+            phone_number:"",
+            code:"",
+            copy:"1",
+        },
+        methods:{
+            send: async function () {
+                await axios.get("http://localhost:8082/register/in?phone=13865408845")
+                    .then(res=>{
+                        this.code=res.data;
+                        alert(this.code);
+                    })
+                // return this.code;
+            },
+            an:function () {
+                alert(this.code);
+            }
+
+
+            // send(){
+            //     axios({
+            //         method:'get',
+            //         url:'http://localhost:8082/register/in?phone=13865408845'
+            //     }).then(function(res){
+            //         alert(this.phonenumber);
+            //         console.log(res.data.name);
+            //     });
+            // }
+        }
+    });
+</script>
+<!--<script>-->
+<!--    axios.get("http://localhost:8082/register/in?phone=13865408845")-->
+<!--    .then(function (res) {-->
+<!--        console.log(res.data)-->
+<!--    })-->
+<!--    .catch(function (err) {-->
+<!--        console.log(err)-->
+<!--    })-->
+<!--</script>-->
+</body>
+</html>
